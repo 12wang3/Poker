@@ -1,30 +1,30 @@
-ï»¿#include <stdio.h>
+#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <algorithm>
 
-class pokerStringType//å®šä¹‰å­˜æ”¾ä¸€ä¸ªç‰Œç»„çš„ä¿¡æ¯çš„ç±»
+class pokerStringType//¶¨Òå´æ·ÅÒ»¸öÅÆ×éµÄĞÅÏ¢µÄÀà
 {
 	public:
-		struct pokerType//å®šä¹‰å­˜æ”¾ä¸€å¼ ç‰Œçš„ä¿¡æ¯çš„ç»“æ„ä½“
+		struct pokerType//¶¨Òå´æ·ÅÒ»ÕÅÅÆµÄĞÅÏ¢µÄ½á¹¹Ìå
 		{	
-			int color;/*ç‰Œçš„é¢œè‰²ç¼–å·	SPADES   0
+			int color;/*ÅÆµÄÑÕÉ«±àºÅ	SPADES   0
 									HEARTS   1
 									CLUBS    2
 									DIAMONDS 3*/
-			int point;//ç‰Œçš„ç‚¹æ•°2åˆ°14
+			int point;//ÅÆµÄµãÊı2µ½14
 		};
 
 		pokerStringType();
 		~pokerStringType();
 		
-		void addPoker(char *colorString,int point);//æ·»åŠ ä¸€å¼ ç‰Œ,å¹¶ä¿è¯ç‰Œç»„ç‚¹æ•°ä¸ºå‡åº
-		void addPoker(int color,int point);//åŒä¸ºæ·»åŠ ï¼Œä½†æ˜¯èŠ±è‰²ç›´æ¥ä¸ºæ ‡å·
-		double calcValue();//è®¡ç®—è¿™ç»„ç‰Œèƒ½ç»„æˆçš„æœ€å¥½çš„ç‰Œçš„ä»·å€¼
-		void display();//è¾“å‡ºç‰Œç»„
+		void addPoker(char *colorString,int point);//Ìí¼ÓÒ»ÕÅÅÆ,²¢±£Ö¤ÅÆ×éµãÊıÎªÉıĞò
+		void addPoker(int color,int point);//Í¬ÎªÌí¼Ó£¬µ«ÊÇ»¨É«Ö±½ÓÎª±êºÅ
+		double calcValue();//¼ÆËãÕâ×éÅÆÄÜ×é³ÉµÄ×îºÃµÄÅÆµÄ¼ÛÖµ
+		void display();//Êä³öÅÆ×é
 	private:
-		int tot;//ç‰Œæ€»æ•°
-		pokerType poker[8];//ç‰Œç»„
+		int tot;//ÅÆ×ÜÊı
+		pokerType poker[8];//ÅÆ×é
 };
 
 pokerStringType::pokerStringType()

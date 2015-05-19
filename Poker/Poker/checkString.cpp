@@ -8,10 +8,10 @@ class pokerStringType//定义存放一个牌组的信息的类
 	public:
 		struct pokerType//定义存放一张牌的信息的结构体
 		{	
-			int color;/*牌的颜色编号	SPADES   0
-									HEARTS   1
-									CLUBS    2
-									DIAMONDS 3*/
+			int color;/*牌的颜色编号	SPADES   1
+									HEARTS   2
+									CLUBS    3
+									DIAMONDS 4*/
 			int point;//牌的点数2到14
 		};
 
@@ -19,7 +19,7 @@ class pokerStringType//定义存放一个牌组的信息的类
 		~pokerStringType();
 		
 		void addPoker(char *colorString,int point);//添加一张牌,并保证牌组点数为升序
-		void addPoker(int color,int point);//同为添加，但是花色直接为标号
+		void addPoker(int color,int point);//同为添加，但是花色直接为编号
 		double calcValue();//计算这组牌能组成的最好的牌的价值
 		void display();//输出牌组
 	private:
@@ -51,10 +51,10 @@ void pokerStringType::addPoker(char *colorString,int point)
 {
 	int color;
 	switch(colorString[0]) {
-		case 'S':color=0;break;
-		case 'H':color=1;break;
-		case 'C':color=2;break;
-		case 'D':color=3;break;
+		case 'S':color=1;break;
+		case 'H':color=2;break;
+		case 'C':color=3;break;
+		case 'D':color=4;break;
 	}
 	addPoker(color,point);
 }
@@ -75,11 +75,11 @@ void pokerStringType::display()
 int main(void)
 {
 	pokerStringType pst;
-	pst.addPoker(0,10);
-	pst.addPoker(3,2);
-	pst.addPoker(3,13);
-	pst.addPoker(3,4);
-	pst.addPoker(1,2);
+	pst.addPoker(1,10);
+	pst.addPoker(4,2);
+	pst.addPoker(4,13);
+	pst.addPoker(4,4);
+	pst.addPoker(2,2);
 	pst.display();
 	return 0;
 }

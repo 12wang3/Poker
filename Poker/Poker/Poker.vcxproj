@@ -11,7 +11,10 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="checkString.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="checkString.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <ProjectGuid>{F190D142-D706-4C89-91B6-EB8F19EB2788}</ProjectGuid>

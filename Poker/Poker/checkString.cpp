@@ -1,39 +1,42 @@
-#include <stdio.h>
+ï»¿#include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
 #include <algorithm>
 
-class pokerStringType//¶¨Òå´æ·ÅÒ»¸öÅÆ×éµÄĞÅÏ¢µÄÀà
+class pokerStringType//å®šä¹‰å­˜æ”¾ä¸€ä¸ªç‰Œç»„çš„ä¿¡æ¯çš„ç±»
 {
 	public:
-		struct pokerType//¶¨Òå´æ·ÅÒ»ÕÅÅÆµÄĞÅÏ¢µÄ½á¹¹Ìå
+		struct pokerType//å®šä¹‰å­˜æ”¾ä¸€å¼ ç‰Œçš„ä¿¡æ¯çš„ç»“æ„ä½“
 		{	
-			int color;/*ÅÆµÄÑÕÉ«±àºÅ	SPADES   1
+			int color;/*ç‰Œçš„é¢œè‰²ç¼–å·	SPADES   1
 									HEARTS   2
 									CLUBS    3
 									DIAMONDS 4*/
-			int point;//ÅÆµÄµãÊı2µ½14
+			int point;//ç‰Œçš„ç‚¹æ•°2åˆ°14
 		};
 
 		pokerStringType();
 		~pokerStringType();
 		
-		void addPoker(char *colorString,int point);//Ìí¼ÓÒ»ÕÅÅÆ,²¢±£Ö¤ÅÆ×éµãÊıÎªÉıĞò
-		void addPoker(int color,int point);//Í¬ÎªÌí¼Ó£¬µ«ÊÇ»¨É«Ö±½ÓÎª±àºÅ
-		int calcValue();/*¼ÆËãÕâ×éÅÆÄÜ×é³ÉµÄ×îºÃµÄÅÆµÄ¼ÛÖµ
-						  8 Í¬»¨Ë³
-						  7 ËÄÌõ
-						  6 ºùÂ«
-						  5 Í¬»¨
-						  4 Ë³×Ó
-						  3 ÈıÌõ
-						  2 Á½¶Ô
-						  1 Ò»¶Ô
-						  0 ¸ßÅÆ*/
-		void display();//Êä³öÅÆ×é
+		void addPoker(char *colorString,int point);//æ·»åŠ ä¸€å¼ ç‰Œ,å¹¶ä¿è¯ç‰Œç»„ç‚¹æ•°ä¸ºå‡åº
+		void addPoker(int color,int point);//åŒä¸ºæ·»åŠ ï¼Œä½†æ˜¯èŠ±è‰²ç›´æ¥ä¸ºç¼–å·
+		int calcValue();/*è®¡ç®—è¿™ç»„ç‰Œèƒ½ç»„æˆçš„æœ€å¥½çš„ç‰Œçš„ä»·å€¼
+						  8 åŒèŠ±é¡º
+						  7 å››æ¡
+						  6 è‘«èŠ¦
+						  5 åŒèŠ±
+						  4 é¡ºå­
+						  3 ä¸‰æ¡
+						  2 ä¸¤å¯¹
+						  1 ä¸€å¯¹
+						  0 é«˜ç‰Œ*/
+		void display();//è¾“å‡ºç‰Œç»„
 	private:
-		int tot;//ÅÆ×ÜÊı
-		pokerType poker[9];//ÅÆ×é
+		int tot;//ç‰Œæ€»æ•°
+		pokerType poker[9];//ç‰Œç»„
+
+		int calcFive(pokerType *p); 
+
 };
 
 pokerStringType::pokerStringType()
@@ -67,35 +70,58 @@ void pokerStringType::addPoker(char *colorString,int point)
 	}
 	addPoker(color,point);
 }
+int pokerStringType::calcFive(pokerType *p)
+{
+	int i;
+	int value=0,v=0;
+	int s=1,o=1;
+	for (i=2;i<=5;i++) {
+		//printf ("{%d,%d}",j,i);
+		if  (p[i].color!=p[i-1].color) {
+			s=0;
+		}
+		if  (p[i].point!=p[i-1].point+1) {
+			o=0;
+		}
+	}
+	if  (s&&o) {v=8;}
+	else if(s) {v=5;}
+	else if(o) {v=4;}
+	if  (v>value) {
+		value=v;
+	}
+	return value;
+}
+
 int pokerStringType::calcValue()
 {
-	int i,j;
-	int value=0;
-	
-	/*if  (tot>=5) {
-		for (j=1;j<=tot-4;j++){//ÅĞ¶ÏÊÇ·ñÎªÍ¬»¨Ë³,»òÍ¬»¨»òË³×Ó
-			int v=0;
-			int s=1,o=1;
-			for (i=j+1;i<=j+4;i++) {
-				//printf ("{%d,%d}",j,i);
-				if  (poker[i].color!=poker[i-1].color) {
-					s=0;
-				}
-				if  (poker[i].point!=poker[i-1].point+1) {
-					o=0;
+	int i,j,len=0;
+	int value=0,v=0;
+	pokerType tmp[7];
+	if  (tot==5) {
+		value=calcFive(poker);
+		if  (value>0) {
+			return value;
+		}
+	}
+	if  (tot==6) {
+		for (i=1;i<=tot;i++) {
+			len=0;
+			for (j=1;j<=tot;j++) {
+				if  (i!=j) {
+					len++;
+					tmp[len]=poker[j];
 				}
 			}
-			if  (s&&o) {v=8;}
-			else if(s) {v=5;}
-			else if(o) {v=4;}
+			v=calcFive(tmp);
 			if  (v>value) {
 				value=v;
 			}
 		}
-		if  (value!=0)
+		if  (value>0) {
 			return value;
-	}*/
-
+		}
+	}
 	int cnt=0;
 	int count[5]={0};
 	for (i=1;i<=tot+1;i++) {
@@ -136,17 +162,3 @@ void pokerStringType::display()
 }
 
 
-int main(void)
-{
-	pokerStringType pst;
-	pst.addPoker(4,1);
-	pst.addPoker(4,8);
-	pst.addPoker(4,1);
-	pst.addPoker(2,7);
-	pst.addPoker(4,2);
-	pst.addPoker(5,7);
-	pst.addPoker(4,8);
-	pst.display();
-	printf ("%d\n",pst.calcValue());
-	return 0;
-}
